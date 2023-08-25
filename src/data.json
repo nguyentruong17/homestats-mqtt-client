@@ -1,0 +1,131 @@
+{
+    "sent": "2023-08-24 06:51:12.954",
+    "delimitter": "__",
+    "payload": [
+        {
+            "Id": "sys_mem__clock",
+            "Label": "",
+            "Value": 1774
+        },
+        {
+            "Id": "sys_cpu__utilization",
+            "Label": "",
+            "Value": 3
+        },
+        {
+            "Id": "sys_mem__usage",
+            "Label": "",
+            "Value": 15473
+        },
+        {
+            "Id": "sys_gpu__mem_clock",
+            "Label": "",
+            "Value": 101
+        },
+        {
+            "Id": "sys_gpu__utilization",
+            "Label": "",
+            "Value": 16
+        },
+        {
+            "Id": "sys_gpu__mem_usage",
+            "Label": "",
+            "Value": 1718
+        },
+        {
+            "Id": "temp_mobo__measure",
+            "Label": "",
+            "Value": 28
+        },
+        {
+            "Id": "temp_cpu__measure",
+            "Label": "",
+            "Value": 51
+        },
+        {
+            "Id": "temp_chipset__measure",
+            "Label": "",
+            "Value": 47
+        },
+        {
+            "Id": "temp_gpu__measure",
+            "Label": "",
+            "Value": 34
+        },
+        {
+            "Id": "temp_gpu__hotspot",
+            "Label": "",
+            "Value": 45
+        },
+        {
+            "Id": "fan_cpu__measure",
+            "Label": "",
+            "Value": 668
+        },
+        {
+            "Id": "fan_gpu__fan1",
+            "Label": "",
+            "Value": 0
+        },
+        {
+            "Id": "fan_gpu__fan2",
+            "Label": "",
+            "Value": 0
+        },
+        {
+            "Id": "fan_gpu__fan3",
+            "Label": "",
+            "Value": 0
+        },
+        {
+            "Id": "voltage_cpu__measure",
+            "Label": "",
+            "Value": 1.3
+        },
+        {
+            "Id": "voltage_gpu__measure",
+            "Label": "",
+            "Value": 0.669
+        },
+        {
+            "Id": "wattage_cpu__measure",
+            "Label": "",
+            "Value": 41.88
+        },
+        {
+            "Id": "wattage_gpu__measure",
+            "Label": "",
+            "Value": 20.13
+        },
+        {
+            "Id": "sys_cpu__clock_core_max",
+            "Label": "",
+            "Value": 4584
+        },
+        {
+            "Id": "sys_cpu__clock_core_min",
+            "Label": "",
+            "Value": 3569
+        },
+        {
+            "Id": "sys_cpu__utilization_thread_max",
+            "Label": "",
+            "Value": 65
+        },
+        {
+            "Id": "sys_cpu__utilization_thread_min",
+            "Label": "",
+            "Value": 0
+        },
+        {
+            "Id": "temp_hdd__hdd1",
+            "Label": "",
+            "Value": 39
+        },
+        {
+            "Id": "temp_hdd__hdd2",
+            "Label": "",
+            "Value": 30
+        }
+    ]
+}
