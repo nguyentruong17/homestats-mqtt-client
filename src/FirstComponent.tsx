@@ -1,57 +1,98 @@
 import {
+    Box,
+    Icon,
     Spinner,
-    Stat,
-    StatArrow,
     StatGroup,
-    StatHelpText,
-    StatLabel,
-    StatNumber,
 } from '@chakra-ui/react'
-import { useAppContext } from './AppContext'
+import { SiPcgamingwiki } from 'react-icons/si'
+import { StatComponent } from './StatComponent'
+import { TopicMessage } from './App'
 
-export const FirstComponent = () => {
-    const { messages } = useAppContext();
+type FirstComponentProps = {
+    messages: TopicMessage[]
+}
+
+export const FirstComponent = ({
+    messages
+}: FirstComponentProps) => {
     const nowMessage = messages[0];
     const prevMessage = messages[1];
 
     if (!nowMessage || !prevMessage) {
-        return <Spinner></Spinner>
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDir: 'row',
+                    columnGap: '1rem'
+                }}
+            >
+                <Icon
+                    as={SiPcgamingwiki}
+                    boxSize={'4rem'}
+                />
+                <Spinner
+                    color='teal.50'
+                    emptyColor='teal.300'
+                    size='xl'
+                    speed='0.5s'
+                    thickness='.5rem'
+                />
+            </Box>
+        )
     }
 
-    console.log({
-        nowMessage: nowMessage.sent,
-        prevMessage: prevMessage.sent,
-        messages
-    })
-
-    const nowCpuTemp = nowMessage.payload?.find((each) => each.Id === 'temp_cpu__measure')!.Value
-    const prevCpuTemp = prevMessage.payload?.find((each) => each.Id === 'temp_cpu__measure')!.Value
-
-    const nowGpuTemp = nowMessage.payload?.find((each) => each.Id === 'temp_gpu__measure')!.Value
-    const prevGpuTemp = prevMessage.payload?.find((each) => each.Id === 'temp_gpu__measure')!.Value
-
-    const cpuTempFluc = (nowCpuTemp - prevCpuTemp!) / prevCpuTemp * 100
-    const gpuTempFluc = (nowGpuTemp - prevGpuTemp!) / prevGpuTemp * 100
+    const messageProps = {
+        nowMessage,
+        prevMessage
+    }
 
     return (
-        <StatGroup>
-            <Stat>
-                <StatLabel>{'CPU Temp'}</StatLabel>
-                <StatNumber>{`${nowCpuTemp}  (${prevCpuTemp})`}</StatNumber>
-                <StatHelpText>
-                    <StatArrow type={nowCpuTemp > prevCpuTemp ? 'increase' : 'decrease'} />
-                    {`${cpuTempFluc}%`}
-                </StatHelpText>
-            </Stat>
-
-            <Stat>
-                <StatLabel>{'GPU Temp'}</StatLabel>
-                <StatNumber>{`${nowGpuTemp}  (${prevGpuTemp})`}</StatNumber>
-                <StatHelpText>
-                <StatArrow type={nowGpuTemp > prevGpuTemp ? 'increase' : 'decrease'} />
-                    {`${gpuTempFluc}%`}
-                </StatHelpText>
-            </Stat>
-        </StatGroup>
+        <Box
+            sx={{
+                alignItems: 'center',
+                display: 'flex',
+                flexDir: 'column',
+                flexGrow: 1,
+                gap: '10%',
+            }}
+        >
+            <StatGroup
+                sx={{
+                    // display: 'flex',
+                    // flexDir: 'row',
+                    // flexGrow: 1,
+                    // gap: '10%',
+                    // w: '100%'
+                }}
+            >
+                <StatComponent
+                    id={'temp_cpu__measure'}
+                    {...messageProps}
+                />
+                <StatComponent
+                    id={'temp_gpu__measure'}
+                    {...messageProps}
+                />
+            </StatGroup>
+            <StatGroup
+                sx={{
+                    // display: 'flex',
+                    // flexDir: 'row',
+                    // flexGrow: 1,
+                    // gap: '10%',
+                    // w: '100%'
+                }}
+            >
+                <StatComponent
+                    id={'sys_mem__usage'}
+                    {...messageProps}
+                />
+                <StatComponent
+                    id={'sys_gpu__mem_usage'}
+                    {...messageProps}
+                />
+            </StatGroup>
+        </Box>
     )
 }
