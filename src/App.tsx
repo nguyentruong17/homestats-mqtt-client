@@ -12,7 +12,8 @@ import {
     chakra,
 	Stack
 } from '@chakra-ui/react'
-import { FirstComponent } from './FirstComponent'
+import { SecondComponent } from './SecondComponent'
+import { ToggleColorMode } from './components'
 
 type TopicMessagePayload = {
     Id: string;
@@ -166,9 +167,7 @@ export const App = () => {
 				w: '100vw'
 			}}
 		>
-            <chakra.h1 textAlign={'center'} fontSize={'4xl'} py={10} fontWeight={'bold'}>
-                {'Torrent7 Systeminfo'}
-            </chakra.h1>
+			<ToggleColorMode />
 			<Stack direction='row' spacing={4} align='center' justify={'center'}>
 				<Button
 					colorScheme='teal'
@@ -196,7 +195,7 @@ export const App = () => {
 					pt: messages.length < 2 ? '4rem' : '1rem'
 				}}
 			>
-				<FirstComponent messages={messages}/>
+				<SecondComponent messages={messages}/>
 			</Box>
         </Box>
 	)
