@@ -6,7 +6,8 @@ import {
 } from '@chakra-ui/react'
 import { SiPcgamingwiki } from 'react-icons/si'
 import { StatComponent } from './StatComponent'
-import { TopicMessage } from './App'
+
+import type { TopicMessage } from './App'
 
 type FirstComponentProps = {
     messages: TopicMessage[]

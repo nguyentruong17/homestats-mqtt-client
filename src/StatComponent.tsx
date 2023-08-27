@@ -7,29 +7,9 @@ import {
     StatNumber,
 } from '@chakra-ui/react'
 import { TbEqualDouble } from 'react-icons/tb'
-import { TopicMessage } from './App'
+import { sensor_map } from './const';
 
-const sensor_map: {[id: string]: {
-    label: string,
-    unit: string
-}} = {
-    'temp_cpu__measure': {
-        label: 'CPU Temp',
-        unit: '°C'
-    },
-    'temp_gpu__measure': {
-        label: 'GPU Temp',
-        unit: '°C'
-    },
-    'sys_mem__usage': {
-        label: 'RAM Usage',
-        unit: ' MB'
-    },
-    'sys_gpu__mem_usage': {
-        label: 'GMem Usage',
-        unit: ' MB'
-    }
-}
+import type { TopicMessage } from './App'
 
 const option: Intl.NumberFormatOptions = {
     style: 'percent',
