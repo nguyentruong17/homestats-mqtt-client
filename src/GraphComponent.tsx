@@ -65,7 +65,7 @@ export const GraphComponent = ({
             outline: {
                 show: false
             },
-            radius: '100px',
+            radius: '200px',
             type: 'liquidFill',
         }]
     }

@@ -55,8 +55,8 @@ export const SecondComponent = ({
                 messages={messages}
                 style={{
                     display: 'flex',
-                    height: 102,
-                    width: 102
+                    height: 202,
+                    width: 202
                 }}
             />
             <GraphComponent
@@ -64,8 +64,8 @@ export const SecondComponent = ({
                 messages={messages}
                 style={{
                     display: 'flex',
-                    height: 102,
-                    width: 102
+                    height: 202,
+                    width: 202
                 }}
             />
         </Box>
