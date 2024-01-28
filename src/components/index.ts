@@ -1,1 +1,1 @@
-export { ToggleColorMode } from './ToggleColorMode'
+export {Header} from './Header';

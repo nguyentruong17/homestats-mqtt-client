@@ -7,13 +7,11 @@ import {
 } from 'react'
 import * as mqtt from 'mqtt'
 import {
-    Box,
-    Button,
-    chakra,
-	Stack
+    Grid,
+	GridItem
 } from '@chakra-ui/react'
-import { SecondComponent } from './SecondComponent'
-import { ToggleColorMode } from './components'
+// import { SecondComponent } from './SecondComponent'
+import { Header } from './components'
 
 type TopicMessagePayload = {
     Id: string;
@@ -91,7 +89,7 @@ export const App = () => {
 		}
 	}
 
-	const startHandler = async () => {
+	const handleStart = async () => {
 		try {
 			const cli = await mqtt.connectAsync('ws://192.168.0.62:9001', {
 				connectTimeout: 10 * 1000, // 10s
@@ -106,7 +104,7 @@ export const App = () => {
 		}
 	}
 
-	const endHandler = () => {
+	const handleEnd = () => {
 		mqttUnSub(subscription)
 		mqttDisconnect()
 
@@ -114,43 +112,41 @@ export const App = () => {
 	}
 
 	useEffect(() => {
-		if (client) {
-			console.log('in here')
-	
-			// https://github.com/mqttjs/MQTT.js#event-connect
-			client.on('connect', () => {
-				setConnectStatus('Connected')
-				console.log('Connected to broker')
-			})
+		if (!client) return
 
-			// https://github.com/mqttjs/MQTT.js#event-error
-			client.on('error', (err) => {
-				console.error('Connection error to broker: ', err)
-				client.end()
-			})
+		// https://github.com/mqttjs/MQTT.js#event-connect
+		client.on('connect', () => {
+			setConnectStatus('Connected')
+			console.log('Connected to broker')
+		})
 
-			// https://github.com/mqttjs/MQTT.js#event-reconnect
-			client.on('reconnect', () => {
-				console.error('Connection reconnecting to broker...')
-				setConnectStatus('Reconnecting')
-			})
+		// https://github.com/mqttjs/MQTT.js#event-error
+		client.on('error', (err) => {
+			console.error('Connection error to broker: ', err)
+			client.end()
+		})
 
-			// https://github.com/mqttjs/MQTT.js#event-message
-			client.on('message', (topic, message) => {
-				// const payload = { topic, message: message.toString() }
-				// setPayload(payload)
+		// https://github.com/mqttjs/MQTT.js#event-reconnect
+		client.on('reconnect', () => {
+			console.error('Connection reconnecting to broker...')
+			setConnectStatus('Reconnecting')
+		})
 
-				const str = message.toString()
-				const json = JSON.parse(str) as TopicMessage
+		// https://github.com/mqttjs/MQTT.js#event-message
+		client.on('message', (topic, message) => {
+			// const payload = { topic, message: message.toString() }
+			// setPayload(payload)
 
-				console.log(`Received message at: ${json.sent} from topic: ${topic}`)
+			const str = message.toString()
+			const json = JSON.parse(str) as TopicMessage
 
-				setMessages((cur) => [
-					json,
-					...cur
-				])
-			})
-		}
+			console.log(`Received message at: ${json.sent} from topic: ${topic}`)
+
+			setMessages((cur) => [
+				json,
+				...cur
+			])
+		})
 	}, [client])
 
     useEffect(() => {
@@ -160,43 +156,48 @@ export const App = () => {
     }, [messages.length]);
 	
 	return (
-        <Box
-			sx={{
-				// backgroundColor: 'gray.600',
-				h: '100vh',
-				w: '100vw'
-			}}
+		<Grid
+			border={'2px dotted blue'}
+			templateAreas={`
+				'header header'
+                'main main'
+			`}
+			gridTemplateRows={'36px 1fr'}
+			gridTemplateColumns={'1fr 1fr'}
+			h='100vh'
+			w='100vw'
+			gap='1'
 		>
-			<ToggleColorMode />
-			<Stack direction='row' spacing={4} align='center' justify={'center'}>
-				<Button
-					colorScheme='teal'
-					onClick={startHandler}
-					variant='outline'
-				>
-					{'Start'}
-				</Button>
-				<Button
-					colorScheme='red'
-					disabled={connectStatus === 'Connect'}
-					onClick={endHandler}
-					variant='ghost'
-				>
-					{'End'}
-				</Button>
-			</Stack>
-			<Box
-				sx={{
-					alignItems: 'flex-start',
-					display: 'flex',
-					flexGrow: 1,
-					justifyContent: 'center',
-					height: '100%',
-					pt: messages.length < 2 ? '4rem' : '1rem'
-				}}
+			<GridItem
+				area={'header'}
 			>
-				<SecondComponent messages={messages}/>
-			</Box>
-        </Box>
+				<Header
+					onEndBtnClick={handleEnd}
+					messages={messages}
+					onStartBtnClick={handleStart}
+				/>
+			</GridItem>
+			<GridItem area={'main'}>
+				<Grid
+					h='100%'
+					templateRows='repeat(2, 1fr)'
+					templateColumns='repeat(4, 1fr)'
+					gap={2}
+				>
+					{/* <GridItem rowSpan={2} colSpan={1} bg='tomato' />
+					<GridItem rowSpan={1} colSpan={2} bg='papayawhip' />
+					<GridItem rowSpan={1} colSpan={2} bg='papayawhip' />
+					<GridItem rowSpan={1} colSpan={4} bg='tomato' /> */}
+					<GridItem rowSpan={1} colSpan={1} bg='tomato'/>
+					<GridItem rowSpan={1} colSpan={1} bg='papayawhip'/>
+					<GridItem rowSpan={1} colSpan={1} bg='tomato'/>
+					<GridItem rowSpan={1} colSpan={1} bg='papayawhip'/>
+					<GridItem rowSpan={1} colSpan={1} bg='tomato'/>
+					<GridItem rowSpan={1} colSpan={1} bg='papayawhip'/>
+					<GridItem rowSpan={1} colSpan={1} bg='tomato'/>
+					<GridItem rowSpan={1} colSpan={1} bg='papayawhip'/>
+				</Grid>
+			</GridItem>
+		</Grid>
 	)
 }
