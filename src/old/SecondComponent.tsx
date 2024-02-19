@@ -6,7 +6,7 @@ import {
 import { SiPcgamingwiki } from 'react-icons/si'
 import { GraphComponent } from './GraphComponent'
 
-import type{ TopicMessage } from './App'
+import type{ TopicMessage } from '../App'
 
 type SecondComponentProps = {
     messages: TopicMessage[]

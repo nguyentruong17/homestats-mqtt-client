@@ -2,7 +2,7 @@ import 'echarts-liquidfill';
 import { ReactECharts } from './ReactECharts';
 
 import type { CSSProperties } from 'react';
-import type { LiquidFillGaugeOption } from './type';
+import type { LiquidFillGaugeOption } from '../type';
 
 
 export interface LiquidFillGaugeProps {

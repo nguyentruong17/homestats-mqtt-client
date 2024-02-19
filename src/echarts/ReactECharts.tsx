@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
 import { init, getInstanceByDom, use } from 'echarts/core';
-import { ScatterChart, LineChart, BarChart } from 'echarts/charts';
+import { ScatterChart, LineChart, BarChart, GaugeChart } from 'echarts/charts';
 import {
     LegendComponent,
     GridComponent,
@@ -17,9 +17,10 @@ import type {
     BarSeriesOption,
     LineSeriesOption,
     ScatterSeriesOption,
+    GaugeSeriesOption
 } from 'echarts/charts';
 import type { TitleComponentOption, GridComponentOption } from 'echarts/components';
-import type { LiquidFillGaugeOption } from './type';
+import type { LiquidFillGaugeOption } from '../type';
 
 use([
     BarChart,
@@ -33,6 +34,7 @@ use([
     TitleComponent,
     ToolboxComponent, // A group of utility tools, which includes export, data view, dynamic type switching, data area zooming, and reset.
     TooltipComponent,
+    GaugeChart
 ]);
 
 // Combine an Option type with only required components and charts via ComposeOption
@@ -42,6 +44,7 @@ export type EChartsOption = ComposeOption<
     | TitleComponentOption
     | GridComponentOption
     | ScatterSeriesOption
+    | GaugeSeriesOption
 >;
 
 export interface ReactEChartsProps {
@@ -59,41 +62,54 @@ export const ReactECharts = ({
     loading,
     theme,
 }: ReactEChartsProps): JSX.Element => {
-    const chartRef = useRef<HTMLDivElement>(null)
+    const chartRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        let chart: ECharts | undefined
+        let chart: ECharts | undefined;
     
         if (chartRef.current) {
-            chart = init(chartRef.current, theme)
+            chart = init(chartRef.current, theme);
         }
 
         const resizeChart = () => {
-            chart?.resize()
-        }
+            chart?.resize();
+        };
 
-        window.addEventListener('resize', resizeChart)
+        const resizeObserver = new ResizeObserver(() => {
+            resizeChart();
+        });
+
+        // what if chartRef.current is undefined?
+        resizeObserver.observe(chartRef.current!);
+
+        // window.addEventListener('resize', resizeChart);
 
         return () => {
-            chart?.dispose()
-            window.removeEventListener('resize', resizeChart)
+            if (chartRef.current) {
+                resizeObserver.unobserve(chartRef.current);
+            } else {
+                resizeObserver.disconnect();
+            }
+
+            chart?.dispose();
+            // window.removeEventListener('resize', resizeChart);
         };
-    }, [theme])
+    }, [theme]);
 
     useEffect(() => {
-        if (!chartRef.current) return
+        if (!chartRef.current) return;
 
-        const chart = getInstanceByDom(chartRef.current)
-        chart?.setOption(option, settings)
-    }, [option, settings, theme]) // Whenever theme changes we need to add option and setting due to it being deleted in cleanup function
+        const chart = getInstanceByDom(chartRef.current);
+        chart?.setOption(option, settings);
+    }, [option, settings, theme]); // Whenever theme changes we need to add option and setting due to it being deleted in cleanup function
 
     useEffect(() => {
-        if (!chartRef.current) return
+        if (!chartRef.current) return;
 
-        const chart = getInstanceByDom(chartRef.current)
+        const chart = getInstanceByDom(chartRef.current);
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        loading === true ? chart?.showLoading() : chart?.hideLoading()
+        loading === true ? chart?.showLoading() : chart?.hideLoading();
     }, [loading, theme]);
 
-    return <div ref={chartRef} style={{ width: '100%', height: '100px', ...style }} />
+    return <div ref={chartRef} style={{ width: '100%', height: '100%', ...style }} />;
 }

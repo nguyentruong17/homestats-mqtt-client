@@ -7,9 +7,9 @@ import {
     StatNumber,
 } from '@chakra-ui/react'
 import { TbEqualDouble } from 'react-icons/tb'
-import { sensor_map } from './const';
+import { sensor_map } from '../consts';
 
-import type { TopicMessage } from './App'
+import type { TopicMessage } from '../App'
 
 const option: Intl.NumberFormatOptions = {
     style: 'percent',
