@@ -136,7 +136,7 @@ export const SENSOR_MAP: {[id: string]: {
     },
     'wattage_gpu__measure': {
         label: 'GPU Wattage',
-        maxValue: 220,
+        maxValue: 270,
         shortenLabel: 'GPU Watt',
         unit: 'V'
     },

@@ -153,14 +153,15 @@ export const App = () => {
 	return (
 		<Grid
 			templateAreas={`
-				'header header'
-                'main main'
+				'header'
+                'main'
 			`}
-			gridTemplateRows={'36px 1fr'}
-			gridTemplateColumns={'1fr 1fr'}
+			templateRows={'36px 1fr'}
 			h='100vh'
 			w='100vw'
-			gap='1'
+			gap={1}
+			p={2}
+			pt={0}
 		>
 			<GridItem
 				area={'header'}
@@ -173,9 +174,6 @@ export const App = () => {
 			</GridItem>
 			<GridItem
 				area={'main'}
-				sx={{
-					height: '100%'
-				}}
 			>
 				<MainView messages={messages} />
 			</GridItem>

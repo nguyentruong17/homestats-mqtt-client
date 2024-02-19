@@ -71,12 +71,12 @@ export const Gauge = ({
                     },
                     rich: {
                         value: {
-                            fontSize: 50,
+                            fontSize: '3rem',
                             fontWeight: 'bolder',
                             color: '#777'
                         },
                         unit: {
-                            fontSize: 20,
+                            fontSize: '1.5rem',
                             color: '#999',
                             padding: [0, 0, -20, 10]
                         }

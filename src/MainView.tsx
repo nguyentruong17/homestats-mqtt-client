@@ -43,5 +43,5 @@ export const MainView = ({
         <Moderno
             messages={messages}
         />
-    )
-}
+    );
+};

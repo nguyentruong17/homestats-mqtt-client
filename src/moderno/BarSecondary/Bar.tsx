@@ -7,19 +7,15 @@ type BarProps = {
     data: number;
     maxValue?: number;
     style?: CSSProperties;
-    unit: string;
 }
 
 export const Bar = ({
     data,
     maxValue = 100,
-    style,
-    unit
+    style
 }: BarProps) => {
     const option: ReactEChartsProps['option'] = {
-        tooltip: {
-            show: false
-        },
+        tooltip: {},
         grid: {
             left: 10,
             right: 10,
@@ -38,14 +34,10 @@ export const Bar = ({
         },
         series: [{
             type: 'bar',
-            barWidth: '5%',
+            // barWidth: '40%',
             data: [data],
             label: {
-                show: true,
-                fontSize: 12,
-                position: 'right',
-                offset: [0, 12 * 1.5],
-                formatter: `{c} ${unit}`
+                show: false
             },
             showBackground: true,
             backgroundStyle: {

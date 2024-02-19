@@ -1,9 +1,9 @@
 import React from 'react';
 import {
+    Center,
     Grid,
     GridItem,
-    Heading,
-    VStack
+    Heading
 } from '@chakra-ui/react';
 import {
     Bar,
@@ -26,47 +26,56 @@ export const CpuGaugeMain = ({
 
     return (
         <Grid
+            h={'100%'}
             templateAreas={`
                 'header header'
                 'gauge bars'
             `}
-            gridTemplateRows={'24px 1fr'}
-            gridTemplateColumns={'repeat(2, minmax(0, 1fr))'}
+            templateColumns={'repeat(2, minmax(0, 1fr))'}
+            templateRows={'24px 1fr'}
         >
             <GridItem area={'header'}>
                 <Heading fontSize={'sm'}>{'AMD Ryzen 7 5700X'}</Heading>
             </GridItem>
             <GridItem area={'gauge'}>
-                <Gauge
-                    data={getDataPointFromId('temp_cpu__measure')}
-                    style={{
-                        height: `${0.7 * 100}%`,
-                        paddingTop: `${(1-0.7) / 2 * 100}%`
-                    }}
-                    unit={getMetadataForSensorId('temp_cpu__measure')('unit') as string}
-                />
+                <Center h={'100%'}>
+                    <Gauge
+                        data={getDataPointFromId('temp_cpu__measure')}
+                        style={{
+                            width: '80%'
+                        }}
+                        unit={getMetadataForSensorId('temp_cpu__measure')('unit') as string}
+                    />
+                </Center>
             </GridItem>
             <GridItem area={'bars'}>
-                <VStack
-                    align='stretch'
-                    spacing={4}
+                <Grid
+                    minH={0}
+                    h={'100%'}
+                    templateRows='repeat(3, 1fr)'
                 >
-                    <Bar
-                        data={getDataPointFromId('sys_cpu__utilization')}
-                        maxValue={getMetadataForSensorId('sys_cpu__utilization')('maxValue') as number}
-                        unit={getMetadataForSensorId('sys_cpu__utilization')('unit') as string}
-                    />
-                    <Bar
-                        data={getDataPointFromId('sys_cpu__clock')}
-                        maxValue={getMetadataForSensorId('sys_cpu__clock')('maxValue') as number}
-                        unit={getMetadataForSensorId('sys_cpu__clock')('unit') as string}
-                    />
-                    <Bar
-                        data={getDataPointFromId('fan_cpu__measure')}
-                        maxValue={getMetadataForSensorId('fan_cpu__measure')('maxValue') as number}
-                        unit={getMetadataForSensorId('fan_cpu__measure')('unit') as string}
-                    />
-                </VStack>
+                    <GridItem>
+                        <Bar
+                            data={getDataPointFromId('sys_cpu__utilization')}
+                            maxValue={getMetadataForSensorId('sys_cpu__utilization')('maxValue') as number}
+                            unit={getMetadataForSensorId('sys_cpu__utilization')('unit') as string}
+                        />
+                    </GridItem>
+                    <GridItem>
+                        <Bar
+                            data={getDataPointFromId('sys_cpu__clock')}
+                            maxValue={getMetadataForSensorId('sys_cpu__clock')('maxValue') as number}
+                            unit={getMetadataForSensorId('sys_cpu__clock')('unit') as string}
+                        />
+                    </GridItem>
+                    <GridItem>
+                        <Bar
+                            data={getDataPointFromId('fan_cpu__measure')}
+                            maxValue={getMetadataForSensorId('fan_cpu__measure')('maxValue') as number}
+                            unit={getMetadataForSensorId('fan_cpu__measure')('unit') as string}
+                        />
+                    </GridItem>
+                </Grid>
             </GridItem>
         </Grid>
     );

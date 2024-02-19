@@ -5,6 +5,9 @@ import {
 } from '@chakra-ui/react';
 import { CpuGaugeMain } from './CpuGaugeMain';
 import { GpuGaugeMain } from './GpuGaugeMain';
+import { RamBarSecondary } from './RamBarSecondary';
+import { VramBarSecondary } from './VramBarSecondary';
+import { WattBarSecondary } from './WattBarSecondary';
 
 import type { TopicMessage } from '../App'
 
@@ -18,26 +21,40 @@ export const Moderno = ({
     return (
         <Grid
             templateAreas={`
-                'cpu gpu'
-                'ram vram volt'
+                'main'
+                'secondary'
             `}
-            gridTemplateColumns={'repeat(2, minmax(0, 1fr))'}
-            gridTemplateRows={'2fr 1fr'}
+            templateRows={'2fr 1fr'}
+            h={'100%'}
         >
-            <GridItem area={'cpu'}>
-                <CpuGaugeMain messages={messages}/>
+            <GridItem area={'main'}>
+                <Grid
+                    h={'100%'}
+                    templateColumns={'repeat(2, 1fr)'}
+                >
+                    <GridItem colSpan={1}>
+                        <CpuGaugeMain messages={messages} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                        <GpuGaugeMain messages={messages} />
+                    </GridItem>
+                </Grid>
             </GridItem>
-            <GridItem area={'gpu'}>
-                <GpuGaugeMain messages={messages}/>
-            </GridItem>
-            <GridItem area={'ram'}>
-                Ram
-            </GridItem>
-            <GridItem area={'vram'}>
-                Vram
-            </GridItem>
-            <GridItem area={'volt'}>
-                Volt
+            <GridItem area={'secondary'}>
+                <Grid
+                    h={'100%'}
+                    templateColumns='repeat(3, 1fr)'
+                >
+                    <GridItem colSpan={1}>
+                        <RamBarSecondary messages={messages} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                        <VramBarSecondary messages={messages} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                        <WattBarSecondary messages={messages} />
+                    </GridItem>
+                </Grid>
             </GridItem>
         </Grid>
     );
