@@ -8,21 +8,19 @@ import {
 import {
     Bar
 } from './BarSecondary';
+import { useMqttContext } from 'src/contexts';
 import { getMetadataForSensorId } from 'src/utils';
 
-import type { TopicMessage } from 'src/App';
+// export type WattBarSecondaryProps = {
+//     messages: TopicMessage[];
+// };
 
-export type WattBarSecondaryProps = {
-    messages: TopicMessage[];
-};
-
-export const WattBarSecondary = ({
-    messages
-}: WattBarSecondaryProps) => {
+export const WattBarSecondary = () => {
+    const {lastMessage} = useMqttContext();
     const wattCpuMetadataFn = getMetadataForSensorId('wattage_cpu__measure');
     const wattGpuMetadataFn = getMetadataForSensorId('wattage_gpu__measure');
 
-    const getDataPointFromId = (id: string) => messages[0]
+    const getDataPointFromId = (id: string) => lastMessage!
         .payload
         .find((sensorObject) => sensorObject.Id === id)?.Value ?? 0;
 

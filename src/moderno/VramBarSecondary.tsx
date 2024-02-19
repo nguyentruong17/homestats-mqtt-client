@@ -10,20 +10,18 @@ import {
 import {
     Bar
 } from './BarSecondary';
+import { useMqttContext } from 'src/contexts';
 import { getMetadataForSensorId } from 'src/utils';
 
-import type { TopicMessage } from 'src/App';
+// export type VramBarSecondaryProps = {
+//     messages: TopicMessage[];
+// };
 
-export type VramBarSecondaryProps = {
-    messages: TopicMessage[];
-};
-
-export const VramBarSecondary = ({
-    messages
-}: VramBarSecondaryProps) => {
+export const VramBarSecondary = () => {
+    const {lastMessage} = useMqttContext();
     const ramMetadataFn = getMetadataForSensorId('sys_gpu__mem_usage');
 
-    const getDataPointFromId = (id = 'sys_gpu__mem_usage') => messages[0]
+    const getDataPointFromId = (id = 'sys_gpu__mem_usage') => lastMessage!
         .payload
         .find((sensorObject) => sensorObject.Id === id)?.Value ?? 0;
 

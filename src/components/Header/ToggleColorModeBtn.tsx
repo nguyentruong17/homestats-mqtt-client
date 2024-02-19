@@ -1,17 +1,17 @@
-import { Button, ButtonProps, Icon } from '@chakra-ui/react'
-import { useColorMode } from '@chakra-ui/color-mode'
-import { BsMoon, BsSun } from 'react-icons/bs'
+import { Button, ButtonProps, Icon } from '@chakra-ui/react';
+import { useColorMode } from '@chakra-ui/color-mode';
+import { BsMoon, BsSun } from 'react-icons/bs';
 
 export type ToggleColorModeBtnProps = {
     ButtonSx?: ButtonProps['sx'];
     size?: ButtonProps['size'];
-}
+};
 
 export const ToggleColorModeBtn = ({
     ButtonSx = {},
     size = 'sm'
 }: ToggleColorModeBtnProps) => {
-    const { colorMode, toggleColorMode } = useColorMode()
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <Button
@@ -31,5 +31,5 @@ export const ToggleColorModeBtn = ({
                 />
             )}
         </Button>
-    )
-}
+    );
+};

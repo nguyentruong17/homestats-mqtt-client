@@ -9,18 +9,17 @@ import {
     Bar,
     Gauge
 } from './GaugeMain';
+import { useMqttContext } from 'src/contexts';
 import { getMetadataForSensorId } from 'src/utils';
 
-import type { TopicMessage } from 'src/App';
+// export type CpuGaugeMainProps = {
 
-export type CpuGaugeMainProps = {
-    messages: TopicMessage[];
-};
+// };
 
-export const CpuGaugeMain = ({
-    messages
-}: CpuGaugeMainProps) => {
-    const getDataPointFromId = (id: string) => messages[0]
+export const CpuGaugeMain = () => {
+    const {lastMessage} = useMqttContext();
+
+    const getDataPointFromId = (id: string) => lastMessage!
         .payload
         .find((sensorObject) => sensorObject.Id === id)?.Value ?? 0;
 

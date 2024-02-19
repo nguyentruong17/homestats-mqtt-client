@@ -1,3 +1,5 @@
+export const SUBSCRIBED_TOPIC = 'bedroom/torrent7';
+
 export const SENSOR_MAP: {[id: string]: {
     label: string,
     maxValue?: number,

@@ -11,19 +11,20 @@ import {
     Bar
 } from './BarSecondary';
 import { getMetadataForSensorId } from 'src/utils';
+import { useMqttContext } from 'src/contexts';
 
-import type { TopicMessage } from 'src/App';
+// import type { TopicMessage } from 'src/App';
 
-export type RamBarSecondaryProps = {
-    messages: TopicMessage[];
-};
+// export type RamBarSecondaryProps = {
+//     messages: TopicMessage[];
+// };
 
-export const RamBarSecondary = ({
-    messages
-}: RamBarSecondaryProps) => {
+export const RamBarSecondary = () => {
+    const {lastMessage} = useMqttContext();
+
     const ramMetadataFn = getMetadataForSensorId('sys_mem__usage');
 
-    const getDataPointFromId = (id = 'sys_mem__usage') => messages[0]
+    const getDataPointFromId = (id = 'sys_mem__usage') => lastMessage!
         .payload
         .find((sensorObject) => sensorObject.Id === id)?.Value ?? 0;
 

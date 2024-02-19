@@ -4,39 +4,34 @@ import {
     Flex,
     Icon,
     Stack,
-    Tag,
-    TagLabel,
     Text
-} from '@chakra-ui/react'
-import { MdOutlineAddChart } from 'react-icons/md'
-import { ToggleColorModeBtn } from './ToggleColorModeBtn'
-import { TopicMessage } from '../../App'
-import { getCurrentTime } from '../../utils'
+} from '@chakra-ui/react';
+import { MdOutlineAddChart } from 'react-icons/md';
+import { ToggleColorModeBtn } from './ToggleColorModeBtn';
+import { getCurrentTime } from 'src/utils';
 
 export type HeaderProps = {
     onEndBtnClick: () => void;
-    messages: TopicMessage[];
     onStartBtnClick: () => void;
-}
+};
 
 export const Header = ({
     onEndBtnClick,
-    messages,
     onStartBtnClick
 }: HeaderProps) => {
     const [time, setTime] = useState(getCurrentTime());
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const curTime = getCurrentTime()
+            const curTime = getCurrentTime();
 
-            setTime(curTime)
-        }, 2000)
+            setTime(curTime);
+        }, 2000);
 
         return () => {
-            clearInterval(interval)
-        }
-    }, [])
+            clearInterval(interval);
+        };
+    }, []);
 
     return (
         <Flex
@@ -80,5 +75,5 @@ export const Header = ({
                 </Stack>
             </Flex>
         </Flex>
-    )
-}
+    );
+};

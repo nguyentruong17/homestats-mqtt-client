@@ -5,16 +5,15 @@ import {
 } from '@chakra-ui/react'
 import { SiPcgamingwiki } from 'react-icons/si'
 import { Moderno } from './moderno';
+import { useMqttContext } from './contexts';
 
-import type { TopicMessage } from './App'
+// type SecondComponentProps = {
+//     messages: TopicMessage[]
+// }
 
-type SecondComponentProps = {
-    messages: TopicMessage[]
-}
+export const MainView = () => {
+    const {messages} = useMqttContext();
 
-export const MainView = ({
-    messages
-}: SecondComponentProps) => {
     if (!messages.length) {
         return (
             <Box
@@ -40,8 +39,6 @@ export const MainView = ({
     }
 
     return (
-        <Moderno
-            messages={messages}
-        />
+        <Moderno/>
     );
 };
