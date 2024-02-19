@@ -47,7 +47,7 @@ export const WattBarSecondary = () => {
             templateRows={'24px 1fr'}
         >
             <GridItem area={'header'}>
-                <Heading fontSize={'sm'}>{'WATT 80+G-750W'}</Heading>
+                <Heading fontSize={'sm'}>{'WATT 80PG-750W'}</Heading>
             </GridItem>
             <GridItem area={'bars'}>
                 <Grid
@@ -60,7 +60,7 @@ export const WattBarSecondary = () => {
                 >
                     
                     <GridItem area={'cpu'}>
-                        <Center height={'100%'}>{'CPU'}</Center>
+                        <Center height={'100%'} color={'gray.500'} fontWeight={'bold'}>{'CPU'}</Center>
                     </GridItem>
                     <GridItem area={'c-bar'}>
                         <Bar
@@ -69,11 +69,11 @@ export const WattBarSecondary = () => {
                         />
                     </GridItem>
                     <GridItem area={'c-pert'}>
-                        <Center height={'100%'} fontSize={'xl'}>{currentWattCpuPerct}</Center>
+                        <Center height={'100%'} fontSize={'xl'} color={'gray.400'} fontWeight={'bold'}>{currentWattCpuPerct}</Center>
                     </GridItem>
 
                     <GridItem area={'gpu'}>
-                        <Center height={'100%'}>{'GPU'}</Center>
+                        <Center height={'100%'} color={'gray.500'} fontWeight={'bold'}>{'GPU'}</Center>
                     </GridItem>
                     <GridItem area={'g-bar'}>
                         <Bar
@@ -82,7 +82,7 @@ export const WattBarSecondary = () => {
                         />
                     </GridItem>
                     <GridItem area={'g-pert'}>
-                        <Center height={'100%'} fontSize={'xl'}>{currentWattGpuPerct}</Center>
+                        <Center height={'100%'} fontSize={'xl'} color={'gray.400'} fontWeight={'bold'}>{currentWattGpuPerct}</Center>
                     </GridItem>
                 </Grid>
             </GridItem>

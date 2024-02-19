@@ -57,16 +57,16 @@ export const VramBarSecondary = () => {
             </GridItem>
             <GridItem area={'stats'} px={4}>
                 <Flex justifyContent={'space-between'}>
-                    <Text>{'U: '}</Text>
-                    <Text>{`${currentRamUsage} ${ramUnit}`}</Text>
+                    <Text color={'gray.600'} fontWeight={'bold'}>{'U: '}</Text>
+                    <Text color={'gray.500'} fontWeight={'bold'}>{`${currentRamUsage} ${ramUnit}`}</Text>
                 </Flex>
                 <Flex justifyContent={'space-between'}>
-                    <Text>{'F: '}</Text>
-                    <Text>{`${currentRamFree} ${ramUnit}`}</Text>
+                    <Text color={'gray.600'} fontWeight={'bold'}>{'F: '}</Text>
+                    <Text color={'gray.500'} fontWeight={'bold'}>{`${currentRamFree} ${ramUnit}`}</Text>
                 </Flex>
             </GridItem>
             <GridItem area={'pert'}>
-                <Center height={'100%'} fontSize={'2xl'}>{currentRamUsagePerct}</Center>
+                <Center height={'100%'} fontSize={'2xl'} color={'purple.400'}>{currentRamUsagePerct}</Center>
             </GridItem>
         </Grid>
     );
