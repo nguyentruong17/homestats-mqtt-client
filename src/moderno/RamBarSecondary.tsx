@@ -21,6 +21,14 @@ import { useMqttContext } from 'src/contexts';
 
 export const RamBarSecondary = () => {
     const {lastMessage} = useMqttContext();
+    // const [purple100, purple500, purple600] = useToken(
+    //     // the key within the theme, in this case `theme.colors`
+    //     'colors',
+    //     // the subkey(s), resolving to `theme.colors.red.100`
+    //     ['purple.100', 'purple.500', 'purple.600', 'gray.400', 'gray.500'],
+    //     // a single fallback or fallback array matching the length of the previous arg
+    // );
+
 
     const ramMetadataFn = getMetadataForSensorId('sys_mem__usage');
 
@@ -60,16 +68,16 @@ export const RamBarSecondary = () => {
             </GridItem>
             <GridItem area={'stats'} px={4}>
                 <Flex justifyContent={'space-between'}>
-                    <Text>{'U: '}</Text>
-                    <Text>{`${currentRamUsage} ${ramUnit}`}</Text>
+                    <Text color={'gray.600'} fontWeight={'bold'}>{'U: '}</Text>
+                    <Text color={'gray.500'} fontWeight={'bold'}>{`${currentRamUsage} ${ramUnit}`}</Text>
                 </Flex>
                 <Flex justifyContent={'space-between'}>
-                    <Text>{'F: '}</Text>
-                    <Text>{`${currentRamFree} ${ramUnit}`}</Text>
+                    <Text color={'gray.600'} fontWeight={'bold'}>{'F: '}</Text>
+                    <Text color={'gray.500'} fontWeight={'bold'}>{`${currentRamFree} ${ramUnit}`}</Text>
                 </Flex>
             </GridItem>
             <GridItem area={'pert'}>
-                <Center height={'100%'} fontSize={'2xl'}>{currentRamUsagePerct}</Center>
+                <Center height={'100%'} fontSize={'2xl'} color={'purple.400'}>{currentRamUsagePerct}</Center>
             </GridItem>
         </Grid>
     );

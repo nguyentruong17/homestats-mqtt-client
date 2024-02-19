@@ -1,3 +1,4 @@
+import { useToken } from '@chakra-ui/react';
 import { ReactECharts } from 'src/echarts';
 
 import type { CSSProperties } from 'react';
@@ -14,6 +15,14 @@ export const Bar = ({
     maxValue = 100,
     style
 }: BarProps) => {
+    const [purple100, purple500, purple600] = useToken(
+        // the key within the theme, in this case `theme.colors`
+        'colors',
+        // the subkey(s), resolving to `theme.colors.red.100`
+        ['purple.100', 'purple.500', 'purple.600', 'gray.400', 'gray.500'],
+        // a single fallback or fallback array matching the length of the previous arg
+    );
+
     const option: ReactEChartsProps['option'] = {
         tooltip: {},
         grid: {
@@ -40,8 +49,15 @@ export const Bar = ({
                 show: false
             },
             showBackground: true,
+            itemStyle: {
+                color: purple500,
+                shadowColor: purple600,
+                shadowBlur: 5,
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            },
             backgroundStyle: {
-                color: 'rgba(180, 180, 180, 0.2)'
+                color: purple100
             }
         }]
     };

@@ -1,3 +1,4 @@
+import { useToken } from '@chakra-ui/react';
 import { ReactECharts } from 'src/echarts';
 
 import type { CSSProperties } from 'react';
@@ -16,6 +17,14 @@ export const Bar = ({
     style,
     unit
 }: BarProps) => {
+    const [purple100, purple500, purple600, gray400, gray500] = useToken(
+        // the key within the theme, in this case `theme.colors`
+        'colors',
+        // the subkey(s), resolving to `theme.colors.red.100`
+        ['purple.100', 'purple.500', 'purple.600', 'gray.400', 'gray.500'],
+        // a single fallback or fallback array matching the length of the previous arg
+    );
+
     const option: ReactEChartsProps['option'] = {
         tooltip: {
             show: false
@@ -43,13 +52,35 @@ export const Bar = ({
             label: {
                 show: true,
                 fontSize: 12,
-                position: 'right',
+                position: 'start',
                 offset: [0, 12 * 1.5],
-                formatter: `{c} ${unit}`
+                formatter: `{value|{c}} {unit|${unit}}`,
+                rich: {
+                    value: {
+                        fontSize: '.8rem',
+                        fontWeight: 'bolder',
+                        color: gray400
+                    },
+                    unit: {
+                        fontSize: '.5rem',
+                        color: gray500
+                    }
+                }
             },
             showBackground: true,
+            itemStyle: {
+                color: purple500,
+                shadowColor: purple600,
+                shadowBlur: 5,
+                shadowOffsetX: 1,
+                shadowOffsetY: 1
+            },
             backgroundStyle: {
-                color: 'rgba(180, 180, 180, 0.2)'
+                color: purple100,
+                // shadowColor: purple600,
+                // shadowBlur: 5,
+                // shadowOffsetX: 2,
+                // shadowOffsetY: 2
             }
         }]
     };

@@ -1,3 +1,4 @@
+import { useToken } from '@chakra-ui/react';
 import { ReactECharts } from 'src/echarts';
 
 import type { CSSProperties } from 'react';
@@ -16,6 +17,14 @@ export const Gauge = ({
     style,
     unit
 }: GaugeProps) => {
+    const [, purple500, purple600, gray400, gray500] = useToken(
+        // the key within the theme, in this case `theme.colors`
+        'colors',
+        // the subkey(s), resolving to `theme.colors.red.100`
+        ['purple.100', 'purple.500', 'purple.600', 'gray.400', 'gray.500'],
+        // a single fallback or fallback array matching the length of the previous arg
+    );
+    
     const option: ReactEChartsProps['option'] = {
         series: [
             {
@@ -27,8 +36,8 @@ export const Gauge = ({
                 radius: '100%',
                 splitNumber: 12,
                 itemStyle: {
-                    color: 'violet',
-                    shadowColor: 'rgba(0, 138, 255, 0.45)',
+                    color: purple500,
+                    shadowColor: purple600,
                     shadowBlur: 10,
                     shadowOffsetX: 2,
                     shadowOffsetY: 2
@@ -42,10 +51,10 @@ export const Gauge = ({
                     show: false
                 },
                 axisLine: {
-                    show: true,
+                    show: false,
                     roundCap: true,
                     // lineStyle: {
-                    //     width: 18
+
                     // }
                 },
                 axisTick: {
@@ -73,11 +82,11 @@ export const Gauge = ({
                         value: {
                             fontSize: '3rem',
                             fontWeight: 'bolder',
-                            color: '#777'
+                            color: gray400
                         },
                         unit: {
                             fontSize: '1.5rem',
-                            color: '#999',
+                            color: gray500,
                             padding: [0, 0, -20, 10]
                         }
                     }
