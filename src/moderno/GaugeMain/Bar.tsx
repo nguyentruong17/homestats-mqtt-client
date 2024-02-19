@@ -43,7 +43,7 @@ export const Bar = ({
             label: {
                 show: true,
                 fontSize: 12,
-                position: 'right',
+                position: 'start',
                 offset: [0, 12 * 1.5],
                 formatter: `{c} ${unit}`
             },

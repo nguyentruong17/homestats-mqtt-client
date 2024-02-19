@@ -39,6 +39,17 @@ export const SENSOR_MAP: {[id: string]: {
         shortenLabel: 'CPU Util Min',
         unit: '%'
     },
+    'sys_gpu__clock': {
+        label: 'GPU Core Clock Average',
+        maxValue: 1935 + 1000,
+        shortenLabel: 'GPU Clock Avg',
+        unit: 'MHZ'
+    },
+    'sys_gpu__utilization': {
+        label: 'GPU Utilization Average',
+        shortenLabel: 'GPU Util Avg',
+        unit: '%'
+    },
     'sys_gpu__mem_clock': {
         label: 'GPU Memory Clock',
         maxValue: 7191,
@@ -50,11 +61,6 @@ export const SENSOR_MAP: {[id: string]: {
         maxValue: 8192,
         shortenLabel: 'GPU Mem Usage',
         unit: 'MB'
-    },
-    'sys_gpu__utilization': {
-        label: 'GPU Utilization',
-        shortenLabel: 'GPU Util',
-        unit: '%'
     },
     'sys_mem__clock': {
         label: 'RAM Clock',

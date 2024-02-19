@@ -55,16 +55,16 @@ export const GpuGaugeMain = () => {
                 >
                     <GridItem>
                         <Bar
-                            data={getDataPointFromId('sys_gpu__mem_usage')}
-                            maxValue={getMetadataForSensorId('sys_gpu__mem_usage')('maxValue') as number}
-                            unit={getMetadataForSensorId('sys_gpu__mem_usage')('unit') as string}
+                            data={getDataPointFromId('sys_gpu__utilization')}
+                            maxValue={getMetadataForSensorId('sys_gpu__utilization')('maxValue') as number}
+                            unit={getMetadataForSensorId('sys_gpu__utilization')('unit') as string}
                         />
                     </GridItem>
                     <GridItem>
                         <Bar
-                            data={getDataPointFromId('sys_cpu__clock')}
-                            maxValue={getMetadataForSensorId('sys_cpu__clock')('maxValue') as number}
-                            unit={getMetadataForSensorId('sys_cpu__clock')('unit') as string}
+                            data={getDataPointFromId('sys_gpu__clock')}
+                            maxValue={getMetadataForSensorId('sys_gpu__clock')('maxValue') as number}
+                            unit={getMetadataForSensorId('sys_gpu__clock')('unit') as string}
                         />
                     </GridItem>
                     <GridItem>
