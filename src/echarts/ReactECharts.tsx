@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
 import { init, getInstanceByDom, use } from 'echarts/core';
-import { ScatterChart, LineChart, BarChart } from 'echarts/charts';
+import { ScatterChart, LineChart, BarChart, GaugeChart } from 'echarts/charts';
 import {
     LegendComponent,
     GridComponent,
@@ -17,9 +17,10 @@ import type {
     BarSeriesOption,
     LineSeriesOption,
     ScatterSeriesOption,
+    GaugeSeriesOption
 } from 'echarts/charts';
 import type { TitleComponentOption, GridComponentOption } from 'echarts/components';
-import type { LiquidFillGaugeOption } from './type';
+import type { LiquidFillGaugeOption } from '../type';
 
 use([
     BarChart,
@@ -33,6 +34,7 @@ use([
     TitleComponent,
     ToolboxComponent, // A group of utility tools, which includes export, data view, dynamic type switching, data area zooming, and reset.
     TooltipComponent,
+    GaugeChart
 ]);
 
 // Combine an Option type with only required components and charts via ComposeOption
@@ -42,6 +44,7 @@ export type EChartsOption = ComposeOption<
     | TitleComponentOption
     | GridComponentOption
     | ScatterSeriesOption
+    | GaugeSeriesOption
 >;
 
 export interface ReactEChartsProps {

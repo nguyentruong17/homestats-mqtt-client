@@ -1,4 +1,4 @@
-export const sensor_map: {[id: string]: {
+export const SENSOR_MAP: {[id: string]: {
     label: string,
     maxValue?: number,
     shortenLabel?: string,

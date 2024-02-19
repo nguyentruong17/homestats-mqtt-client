@@ -1,10 +1,10 @@
 import { useToken } from '@chakra-ui/react'
-import { ReactELiquidFill } from './ReactELiquidFill'
-import { sensor_map } from './const'
+import { ReactELiquidFill } from '../echarts/ReactELiquidFill'
+import { sensor_map } from '../consts'
 
 import type { CSSProperties } from 'react'
-import type { TopicMessage } from './App'
-import type { LiquidFillGaugeOption } from './type'
+import type { TopicMessage } from '../App'
+import type { LiquidFillGaugeOption } from '../type'
 import type { CallbackDataParams } from 'echarts/types/dist/shared'
 
 type GraphComponentProps = {

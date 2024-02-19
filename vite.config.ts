@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+import { defineConfig } from 'vite';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,12 +29,9 @@ export default defineConfig({
 			plugins: [nodePolyfills()],
 		},
 	},
-	// resolve: {
-	// 	alias: {
-	// 		// process: 'process/browser',
-	// 		// stream: 'stream-browserify',
-	// 		util: 'util',
-	// 		// zlib: 'browserify-zlib',
-	// 	}
-	// },
-})
+	resolve: {
+		alias: {
+			'src': path.resolve(__dirname, './src/'),
+		}
+	},
+});
