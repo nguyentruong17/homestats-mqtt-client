@@ -162,6 +162,8 @@ const MqttContextProvider = ({ children }: MqttContextProviderProps) => {
         setMessages((cur) => cur.slice(0, 100));
     }, [messages.length]);
 
+    console.log({lastMessage})
+
     const value = useMemo(() => ({
         handleEnd,
         handleStart,

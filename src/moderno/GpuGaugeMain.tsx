@@ -62,9 +62,9 @@ export const GpuGaugeMain = () => {
                     </GridItem>
                     <GridItem>
                         <Bar
-                            data={getDataPointFromId('voltage_gpu__measure')}
-                            maxValue={getMetadataForSensorId('voltage_gpu__measure')('maxValue') as number}
-                            unit={getMetadataForSensorId('voltage_gpu__measure')('unit') as string}
+                            data={getDataPointFromId('sys_cpu__clock')}
+                            maxValue={getMetadataForSensorId('sys_cpu__clock')('maxValue') as number}
+                            unit={getMetadataForSensorId('sys_cpu__clock')('unit') as string}
                         />
                     </GridItem>
                     <GridItem>
