@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/color-mode": "^2.2.0",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -19,10 +20,13 @@
     "echarts-liquidfill": "^3.1.0",
     "events": "^3.3.0",
     "framer-motion": "^10.16.1",
+    "gridstack": "^10.1.0",
     "jotai": "^2.6.4",
     "mqtt": "^5.0.3",
     "process": "^0.11.10",
+    "rdndmb-html5-to-touch": "^8.0.3",
     "react": "^18.2.0",
+    "react-dnd-multi-backend": "^8.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "sass": "^1.66.1",
@@ -45,5 +49,5 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "pnpm@8.15.1"
 }
