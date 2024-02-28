@@ -1,67 +1,30 @@
 import React from 'react';
 import {
 	Box,
+	Center,
 	Grid,
 	GridItem
 } from '@chakra-ui/react';
-import { GridStack as GridStackInstance } from 'gridstack';
 import { useMqttContext } from './contexts';
 import { Header } from './components';
 // import { MainView } from './MainView';
-import { GridBoard } from './GridBoard';
-import { DndGridItem } from './DndGridItem';
+import {
+	DndContext,
+	closestCenter,
+	KeyboardSensor,
+	PointerSensor,
+	useSensor,
+	useSensors,
+} from '@dnd-kit/core';
+import {
+	arrayMove,
+	SortableContext,
+	sortableKeyboardCoordinates,
+	verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { SortableGridItem } from './SortableGridItem';
 
-import 'gridstack/dist/gridstack.css';
-
-import type { GridStack } from 'gridstack';
-
-type ItemType = { id: string | number, color?: string; };
-
-const Item = ({ id, color }: ItemType) => <Box bg={color} h='100%'>{id}</Box>
-
-const ControlledStack = ({ items, addItem }: { items: ItemType[], addItem: React.MouseEventHandler<HTMLButtonElement> }) => {
-	const refs = React.useRef<{ [key: string | number]: React.RefObject<HTMLDivElement> }>({});
-	const gridRef = React.useRef<GridStack | undefined>(undefined);
-
-	if (Object.keys(refs.current).length !== items.length) {
-		items.forEach(({ id }) => {
-			refs.current[id] = refs.current[id] || React.createRef();
-		})
-	}
-
-	React.useEffect(() => {
-		gridRef.current =
-			gridRef.current ||
-			GridStackInstance.init(
-				{
-					float: true,
-				},
-				'.controlled'
-			)
-		const grid = gridRef.current;
-		grid.batchUpdate();
-		grid.removeAll(false);
-		items.forEach(({ id }) => grid.makeWidget(refs.current[id].current!));
-		grid.commit();
-	}, [items]);
-
-	return (
-		<div>
-			<button onClick={addItem}>Add new widget</button>
-			<div className={`grid-stack controlled`}>
-				{items.map((item) => {
-					return (
-						<div ref={refs.current[item.id]} key={item.id} className={'grid-stack-item'}>
-							<div className='grid-stack-item-content'>
-								<Item {...item} />
-							</div>
-						</div>
-					)
-				})}
-			</div>
-		</div>
-	);
-};
+import type { DragEndEvent } from '@dnd-kit/core';
 
 const ITEMS = [
 	{
@@ -104,7 +67,7 @@ const ITEMS = [
 		id: 7,
 		text: 'PROFIT',
 		color: '#76E4F7',
-		colSpan: 2, 
+		colSpan: 2,
 		rowSpan: 3
 	},
 	{
@@ -120,40 +83,35 @@ export const App = () => {
 		handleStart
 	} = useMqttContext();
 
-	const [items, setItems] = React.useState<ItemType[]>([
-		{ id: 'item-1', color: 'green.400' },
-		{ id: 'item-2', color: 'blue.400' }
-	]);
-
 	const [gridItems, setGridItems] = React.useState(ITEMS);
 
-	const findGridItem = React.useCallback(
-		(id: string | number) => {
-			const item = gridItems.filter((item) => item.id === id)[0]
-			return {
-				item,
-				index: gridItems.indexOf(item),
-			}
-		},
-		[gridItems],
-	)
+	const sensors = useSensors(
+		useSensor(PointerSensor),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates,
+		})
+	);
 
-	const moveGridItem = React.useCallback(
-		(id: string | number, atIndex: number) => {
-			const { item, index } = findGridItem(id);
-			console.log({index, atIndex, item})
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+		if (!active.id || !over?.id) {
+			console.log({
+				activeId: active.id,
+				overId: over?.id
+			});
 
+			return;
+		}
+
+		if (active.id !== over.id) {
 			setGridItems((items) => {
-				const results = items.slice();
-				const firstItem = items[index];
-				results[index] = items[atIndex];
-				results[atIndex] = firstItem;
+				const oldIndex = items.findIndex((item) => item.id === active.id);
+				const newIndex = items.findIndex((item) => item.id === over.id);
 
-				return results;
-			})
-		},
-		[findGridItem, setGridItems],
-	)
+				return arrayMove(items, oldIndex, newIndex);
+			});
+		}
+	}
 
 	return (
 		<Grid
@@ -184,21 +142,72 @@ export const App = () => {
 					addItem={() => setItems([...items, { id: `item-${items.length + 1}`, color: 'red.300' }])}
 				/> */}
 				<Grid
-					border='1px dashed black'
+					border='2px dashed black'
 					columnGap={2}
 					h='100%'
 					rowGap={2}
 					templateColumns='repeat(12, 1fr)'
 					templateRows='repeat(6, 1fr)'
 				>
-					{gridItems.map((item) => (
-						<DndGridItem
-							key={item.id}
-							moveGridItem={moveGridItem}
-							findGridItem={findGridItem}
-							{...item}
-						/>
-					))}
+					{[...Array(12 * 6).keys()].map((k) => {
+						const count = k + 1;
+						const rowStart = Math.floor(k / 12) + 1;
+						const colStart = k % 12 + 1;
+
+						// console.log({
+						// 	count,
+						// 	rowStart,
+						// 	colStart
+						// })
+						return (
+							<GridItem
+								gridColumn={`${colStart} / ${colStart + 1}`}
+								gridRow={`${rowStart} / ${rowStart + 1}`}
+								key={`base-${count}`}
+								sx={{
+									border: '1px dotted teal'
+								}}
+								onClick={() => console.log('you clicked: ', count)}
+							// colSpan={1}
+							// rowSpan={1}
+							>
+								<Center>{`+${count}`}</Center>
+							</GridItem>
+						);
+					})}
+					<GridItem
+						bg='rgba(255, 255, 255, 0.2)'
+						gridColumnStart={1}
+						gridRowStart={1}
+						colSpan={12}
+						rowSpan={6}
+						pointerEvents={'none'}
+						// zIndex={1}
+					>
+						<Grid
+							// border='2px dashed black'
+							columnGap={2}
+							h='100%'
+							rowGap={2}
+							templateColumns='repeat(12, 1fr)'
+							templateRows='repeat(6, 1fr)'
+							// pointerEvents={'auto'}
+						>
+							<DndContext
+								sensors={sensors}
+								collisionDetection={closestCenter}
+								onDragEnd={handleDragEnd}
+							>
+
+								<SortableContext
+									items={gridItems}
+									strategy={verticalListSortingStrategy}
+								>
+									{gridItems.map((item) => <SortableGridItem key={item.id} {...item} sx={{ zIndex: 1 }} />)}
+								</SortableContext>
+							</DndContext>
+						</Grid>
+					</GridItem>
 				</Grid>
 			</GridItem>
 		</Grid>
