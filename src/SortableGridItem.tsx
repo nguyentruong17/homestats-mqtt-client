@@ -5,7 +5,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { GridItem, type GridItemProps } from '@chakra-ui/react';
 
 export type SortableGridItemType = {
-    color: string;
+    children?: React.ReactNode,
+    color?: string;
     colSpan?: number;
     id: string | number;
     rowSpan?: number;
@@ -13,6 +14,7 @@ export type SortableGridItemType = {
 }
 
 export const SortableGridItem: React.FC<SortableGridItemType> = ({
+    children,
     color,
     colSpan = 1,
     id,
@@ -47,7 +49,7 @@ export const SortableGridItem: React.FC<SortableGridItemType> = ({
             {...attributes}
             {...listeners}
         >
-            {id}
+            {children ?? id}
         </GridItem>
     );
 };
