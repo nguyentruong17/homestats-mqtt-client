@@ -48,8 +48,8 @@ dependencies:
     specifier: ^2.6.4
     version: 2.6.5(@types/react@18.2.58)(react@18.2.0)
   mqtt:
-    specifier: ^5.0.3
-    version: 5.3.5
+    specifier: ^5.3.6
+    version: 5.3.6
   process:
     specifier: ^0.11.10
     version: 0.11.10
@@ -3541,8 +3541,8 @@ packages:
       - supports-color
     dev: false
 
-  /mqtt@5.3.5:
-    resolution: {integrity: sha512-xd7qt/LEM721U6yHQcqjlaAKXL1Fsqf/MXq6C2WPi/6OXK2jdSzL1eZ7ZUgjea7IY2yFLRWD5LNdT1mL0arPoA==}
+  /mqtt@5.3.6:
+    resolution: {integrity: sha512-3XeyCdHRFf3zZdUUBt/pqprKPtUABc8O4ZGPGs2QPO4sPNTnJels8U2UtBtMt09QCgpUmw8gLTLy2R7verR7kQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:

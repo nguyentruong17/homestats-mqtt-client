@@ -52,37 +52,37 @@ export const Moderno = () => (
 
 export const ITEMS: {
     id: number;
-    component: () => React.ReactElement;
+    component: React.ReactElement;
     colSpan: number;
     rowSpan: number;
 }[] = [
     {
         id: 1,
-        component: CpuGaugeMain,
+        component: <CpuGaugeMain/>,
         colSpan: 6,
         rowSpan: 4
     },
     {
         id: 2,
-        component: GpuGaugeMain,
+        component: <GpuGaugeMain/>,
         colSpan: 6,
         rowSpan: 4
     },
     {
         id: 3,
-        component: RamBarSecondary,
+        component: <RamBarSecondary/>,
         colSpan: 4,
         rowSpan: 2
     },
     {
         id: 4,
-        component: VramBarSecondary,
+        component: <VramBarSecondary/>,
         colSpan: 4,
         rowSpan: 2
     },
     {
         id: 5,
-        component: WattBarSecondary,
+        component: <WattBarSecondary/>,
         colSpan: 4,
         rowSpan: 2
     }
