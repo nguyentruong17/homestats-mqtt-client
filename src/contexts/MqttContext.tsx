@@ -5,7 +5,7 @@ import {
     useMemo,
     useState
 } from 'react';
-import * as mqtt from 'mqtt';
+import mqtt from 'mqtt';
 import { SUBSCRIBED_TOPIC } from 'src/consts';
 
 import type { MqttClient } from 'mqtt';
@@ -102,6 +102,7 @@ const MqttContextProvider = ({ children }: MqttContextProviderProps) => {
                 connectTimeout: 10 * 1000, // 10s
                 clientId: 'React-Torrent7-JS',
             });
+            console.log({cli})
 
             setClient(cli);
 
