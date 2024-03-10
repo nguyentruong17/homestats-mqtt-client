@@ -49,7 +49,19 @@ const MqttContextProvider = ({ children }: MqttContextProviderProps) => {
     // const [connectStatus, setConnectStatus] = useState('Connect');
     // const [isSubed, setIsSub] = useState(false)
     const [messages, setMessages] = useState<TopicMessage[]>([]);
+    // const [idToMessageMap, setIdToMessageMap] = useState<{[key: string]: TopicMessage}>({});
+    
     const lastMessage = messages[0];
+    const lastIdToTopicMessagePayloadMap = useMemo(() =>
+        lastMessage?.payload.reduce<{[key: string]: TopicMessagePayload}>((cur, each) => {
+            const id = each.Id;
+
+            cur[id] = each;
+
+            return cur;
+        }, {}) ?? {},
+        [lastMessage?.sent]
+    );
 
     // disconnect
     // https://github.com/mqttjs/MQTT.js#mqttclientendforce-options-callback
@@ -169,12 +181,14 @@ const MqttContextProvider = ({ children }: MqttContextProviderProps) => {
         handleEnd,
         handleStart,
         messages,
-        lastMessage
+        lastMessage,
+        lastIdToTopicMessagePayloadMap
     }), [
         handleEnd,
         handleStart,
         messages,
-        JSON.stringify(lastMessage)
+        JSON.stringify(lastMessage),
+        lastIdToTopicMessagePayloadMap
     ]);
 
     return (

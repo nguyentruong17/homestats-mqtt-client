@@ -42,10 +42,10 @@ export const MainView = () => {
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (!active.id || !over?.id) {
-            console.log({
-                activeId: active.id,
-                overId: over?.id
-            });
+            // console.log({
+            //     activeId: active.id,
+            //     overId: over?.id
+            // });
 
             return;
         }
